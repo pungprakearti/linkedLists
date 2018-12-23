@@ -3,7 +3,7 @@
  * Node creates a node for LinkedList
  */
 
-export class LinkedList {
+class LinkedList {
   constructor(head = null, tail = null) {
     this.head = head;
     this.tail = tail;
@@ -23,7 +23,11 @@ export class LinkedList {
       //print the last node
       curList.push(current.data);
       console.log(curList.join(' > '));
-    } else console.log('Linked List is empty');
+      return curList.join(' > ');
+    } else {
+      console.log('Linked List is empty');
+      return 'Linked List is empty';
+    }
   }
 
   //create a node with data and append to tail of list
@@ -45,6 +49,7 @@ export class LinkedList {
       this.tail = node;
     }
     console.log(`Added ${node.data} to tail`);
+    return this.print();
   }
 
   //get the node at idx number
@@ -74,10 +79,18 @@ export class LinkedList {
         return current;
 
         //Idx is out of range of list
-      } else console.log(`${idx} is out of range`);
+      } else {
+        console.log(`${idx} is out of range`);
+        // return `${idx} is out of range`;
+        return null;
+      }
 
       //empty list
-    } else console.log('Linked List is empty');
+    } else {
+      console.log('Linked List is empty');
+      // return 'Linked List is empty';
+      return null;
+    }
   }
 
   //create a node from data and add to the head of the list
@@ -90,6 +103,7 @@ export class LinkedList {
     this.head = node;
     console.log(`added ${node.data} to head of linked list`);
     this.print();
+    return this.print();
   }
 
   //remove and return the first node in a list
@@ -160,10 +174,11 @@ export class LinkedList {
 
       //out of range
       if (!prev) {
-        return;
+        return null;
 
         //insert node
       } else {
+        console.log(prev);
         let node = new Node(data, prev.next);
         prev.next = node;
         this.print();
@@ -180,16 +195,40 @@ export class LinkedList {
     this.print();
     return node;
   }
+
+  //returns the average of the numbers in the list
+  average() {
+    let total = 0;
+    let count = 1;
+    if (this.head) {
+      let current = this.head;
+      while (current.next !== null) {
+        if (typeof current.data !== 'number') {
+          console.error('List contains items that are not numbers');
+          return;
+        } else {
+          total += current.data;
+          current = current.next;
+          count++;
+        }
+      }
+      total += current.data;
+      let average = total / count;
+      console.log(`Average of numbers in list is: ${average}`);
+      return average;
+    }
+  }
 }
 
 //create a node
-export class Node {
+class Node {
   constructor(data, next = null) {
     this.data = data;
     this.next = next;
   }
 }
 
+module.exports = LinkedList;
 //**********************************************/
 
 //tests
@@ -205,3 +244,12 @@ export class Node {
 // ll.pop();
 // ll.insertAt(1, 'dog');
 // ll.removeAt(1);
+
+// ll.append(1);
+// ll.append(8);
+// ll.append(3);
+// ll.append(8);
+// ll.append(3);
+// ll.append(2);
+// ll.append(9);
+// ll.average();
