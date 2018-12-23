@@ -18,8 +18,10 @@ class Stack extends LinkedList {
   }
 }
 
-let stack = new Stack();
+module.exports = Stack;
 
-stack.push('a');
-console.log(stack.stackPop());
-stack.peek();
+// let stack = new Stack();
+
+// stack.push('a');
+// console.log(stack.stackPop());
+// stack.peek();
